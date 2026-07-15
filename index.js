@@ -17,12 +17,22 @@ app.addEventListener("click", (e) => {
     if(e.target.matches("#load")) {
         loadStatus.textContent = "Загрузка…";
         card.textContent = "";
+        loadBtn.disabled = true;
+        loadBadBtn.disabled = true;
+        app.classList.value = '';
+        app.classList.add("load");
 
         fetch("https://jsonplaceholder.typicode.com/users/1")
             .then((res) => {
-                if(!res.ok)
+                if(!res.ok) {
+                    app.classList.value = '';
+                    app.classList.add("error");
                     throw new HttpError(res.status, "Пользователь не найден");
-                return res.json();
+                } else {
+                    app.classList.value = '';
+                    app.classList.add("success");
+                    return res.json();
+                }
             })
             .then((user) => {
                 function renderCard(obj, container) {
@@ -56,18 +66,30 @@ app.addEventListener("click", (e) => {
                         loadStatus.textContent = "";
                     }, 3000);
                 }
+                loadBtn.disabled = false;
+                loadBadBtn.disabled = false;
             })
     };
 
     if(e.target.matches("#loadBad")) {
         loadStatus.textContent = "Загрузка…";
         card.textContent = "";
+        loadBtn.disabled = true;
+        loadBadBtn.disabled = true;
+        app.classList.value = '';
+        app.classList.add("load");
 
         fetch("https://jsonplaceholder.typicode.com/users/99999")
             .then((res) => {
-                if(!res.ok)
+                if(!res.ok) {
+                    app.classList.value = '';
+                    app.classList.add("error");
                     throw new HttpError(res.status, "Пользователь не найден");
-                return res.json();
+                } else {
+                    app.classList.value = '';
+                    app.classList.add("success");
+                    return res.json();
+                }
             })
             .then((user) => {
                 function renderCard(obj, container) {
@@ -101,6 +123,8 @@ app.addEventListener("click", (e) => {
                         loadStatus.textContent = "";
                     }, 3000);
                 }
+                loadBtn.disabled = false;
+                loadBadBtn.disabled = false;
             })
     };
 });

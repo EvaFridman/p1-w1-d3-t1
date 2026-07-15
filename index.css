@@ -1,0 +1,18 @@
+.load {
+    background-color: cornflowerblue;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #ccc;
+}
+
+.success {
+    background-color: greenyellow;
+}
+
+.error {
+    background-color: darkred;
+    color: aliceblue;
+}

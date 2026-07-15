@@ -27,6 +27,16 @@ function renderCard(obj, container) {
     });
 }
 
+function resetState() {
+    if (loadStatus.textContent === "Загрузка…") {
+      loadStatus.textContent = "";
+    } else {
+      setTimeout(() => { loadStatus.textContent = ""; }, 3000);
+    }
+    loadBtn.disabled = false;
+    loadBadBtn.disabled = false;
+}
+
 function loadUserData(url) {
     loadStatus.textContent = "Загрузка…";
     card.textContent = "";
@@ -54,15 +64,7 @@ function loadUserData(url) {
                 loadStatus.textContent = `Проблема с сетью: ${err.message}`;
             }
         })
-        .finally(() => {
-            if (loadStatus.textContent === "Загрузка…") {
-                loadStatus.textContent = "";
-            } else {
-                setTimeout(() => { loadStatus.textContent = ""; }, 3000);
-            }
-            loadBtn.disabled = false;
-            loadBadBtn.disabled = false;
-        })
+        .finally(resetState);
 }
 
 app.addEventListener("click", (e) => {
